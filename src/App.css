@@ -1,0 +1,147 @@
+.App {
+  text-align: center;
+  height: 100%;
+}
+
+
+.lnd-header { /*comprised of searchBar, Logo, and LoginBtn. 20% height of page*/
+  
+  width: 100%;
+  height: 15%;
+  display: flex;
+}
+
+.searchBar {
+  width: 45%;
+  font-size: 40px;
+  padding: 5%;
+  
+}
+
+.HeaderLogo {
+  width: 25%;
+  
+  margin-top: 2%;
+  font-size: 100px;
+}
+
+.sBar {
+  margin: 1%;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  outline: none;
+  font-size: 35px;
+  width: 40%;
+}
+
+.loginBtn {
+  width: 30%;
+  margin-top: 5%;
+  display: flex;
+}
+
+.signUp, .signIn {
+  border-radius: 10rem;
+  position: relative;
+  display: flex;
+  color: aliceblue;
+  padding: 2%;
+  background-color: #282c34;
+  width: 25%;
+  height: 20%;
+  border-style: groove;
+}
+
+.btnOverlap {
+  right: 15%;
+  bottom: 30%;
+}
+
+.btnCircleFilled {
+  border-radius: 50%;
+  background-color: aliceblue;
+  height: 35%;
+  width: 10%;
+  margin-top: 5%;
+  margin-right: 5%;
+}
+
+.signIn:hover, .signUp:hover {
+  background-color: aliceblue;
+  color: #282c34;
+}
+
+.signUp:hover > .btnCircleFilled,
+.signIn:hover > .btnCircleFilled {
+  background-color: #282c34;
+}
+
+.QuillIcon {
+  font-size: 70px;
+  color: gray;
+  position: relative;
+  top: 10%;
+  right: 30%;
+  opacity: 50%;
+}
+/*************************END OF Lander HEADER STYLES**************************************/
+/*************************Landing Body Styles**************************************/
+.bodySlider{
+  width: 100%;
+  overflow: hidden;
+  display: block;
+}
+
+/*************************END OF Lander Body STYLES**************************************/
+/*************************profile STYLES**************************************/
+
+.UsrPage {
+  width: 100%;
+  
+  display: inline-flex;
+  overflow: hidden;
+}
+
+.fBar {
+  margin: 1%;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  outline: none;
+  font-size: 35px;
+  width: 40%;
+}
+
+.userBorder1 {
+  
+  display: block;
+  width: 15%;
+  background-image: linear-gradient(to right, aqua, white);
+}
+.userBorder2 {
+  
+  display: block;
+  width: 15%;
+  background-image: linear-gradient(to right, white , aqua);
+}
+
+.userFields {
+  width: 70%;
+}
+
+.Fieldlabel {
+  font-size: 25px;
+  opacity: 50%;
+}
+
+.SavePBtn {
+  font-size: 25px;
+  color: rgb(39, 35, 35);
+  background-color: aqua;
+  border-radius: 10rem;
+  position: relative;
+  float:  right;
+  padding: .5rem;
+  margin-right: 10%;
+}
