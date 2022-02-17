@@ -14,7 +14,7 @@ const Estate = () => {
     const [showEstate, editEstate] = useState(estateSample)
     const [map, setMap] = useState(null)
 
-    const API_KEY = "AIzaSyB3Zw6GbVBrm7Yas4y6AS2L56yOM15wKS0"
+    const API_KEY = ""
 
     const {isLoaded} = useJsApiLoader({
         id: 'google-map-script',
