@@ -1,39 +1,48 @@
 
 import { useState } from "react"
 import React from "react"
-import {GoogleMap, useJsApiLoader} from '@react-google-maps/api'
+import {GoogleMap, useLoadScript, Marker} from '@react-google-maps/api'
 
 const Estate = () => {
 
-    const estateSample = {
-        long: "79.9559",
-        lat: "39.6295",
-        name: "hippo"
-    }
-
-    const [showEstate, editEstate] = useState(estateSample)
-    const [map, setMap] = useState(null)
-
-    const API_KEY = ""
-
-    const {isLoaded} = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: API_KEY
-    })
-
-    const onLoad = React.useCallback(function callback(map) {
-        const bounds = new window.google.maps.LatLngBounds();
-        map.fitBounds(bounds);
-        setMap(map)
-      }, [])
     
     const containerStyle = {
         width: '30%',
         height: '400px'
       };
 
+    const [showEstate, editEstate] = useState({
+        long: "-79.955894",
+        lat: "39.629524",
+        name: "Hippo"
+    })
+    const [map, setMap] = useState(null)
+
+    const API_KEY = "AIzaSyB3Zw6GbVBrm7Yas4y6AS2L56yOM15wKS0"
+
+    const {isLoaded, loadError} = useLoadScript({
+        
+        googleMapsApiKey: API_KEY
+    })
+
+    const onLoad = React.useCallback(async function callback(map) {
+        const bounds = new window.google.maps.LatLngBounds();
+        map.fitBounds(bounds);
+        setMap(map)
+      }, [])
+    
+    if(!isLoaded) return "Loading Google Map"
+
+    // var marker = new google.maps.Map.Marker({
+    //     position: {lat: parseFloat(showEstate.lat), lng: parseFloat(showEstate.long)},
+    //     map: map
+    // })
+
     return (
-        <div className="estateSelector">
+        /* global google */
+        <div className="EstateSelector">
+            <div className="EditEstateHeader"></div>
+            
             <div className="userBorder1"></div>
             <div className="displayEstate">
                     
@@ -46,9 +55,16 @@ const Estate = () => {
                     <label className='Fieldlabel'>Lat</label>
                     <input name="lat" type="text" className="fBar" value={showEstate.lat} placeholder="LAT" onChange={(e) => editEstate(e.target.value)}></input>
                     <br/>
+                    <GoogleMap  
+                    
+                    center={{ lat: 39.629524, lng:  -79.955894 }}
+                    mapContainerStyle={containerStyle} 
+                    
+                    zoom={11} onLoad ={onLoad}>
+                 </GoogleMap>
             </div>
             
-                <GoogleMap mapContainerStyle={containerStyle} center={showEstate.lat, showEstate.long} zoom={6} onLoad ={onLoad}></GoogleMap>
+               
             
             
             <div className="userBorder2"></div>
