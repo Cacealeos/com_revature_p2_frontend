@@ -3,7 +3,7 @@ import LandingSlider from "./LandingSlider";
 
 const Landing = () => {
     return (
-        <div>
+        <div className="Landing">
             <LandingHeader></LandingHeader>
             <LandingSlider></LandingSlider>
         </div>
