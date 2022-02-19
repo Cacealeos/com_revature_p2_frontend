@@ -1,3 +1,4 @@
+import LandingFooter from "./LandingFooter";
 import LandingHeader from "./LandingHeader";
 import LandingSlider from "./LandingSlider";
 
@@ -6,6 +7,7 @@ const Landing = () => {
         <div className="Landing">
             <LandingHeader></LandingHeader>
             <LandingSlider></LandingSlider>
+            <LandingFooter></LandingFooter>
         </div>
         
     )
