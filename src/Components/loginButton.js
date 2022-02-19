@@ -6,18 +6,17 @@ const LoginButtons = () => {
     return (
         <div className="loginBtn">
             
-                <div className="signIn" onClick={null}>
-                    <div className="btnCircleFilled"></div>
-                    SIGN IN__
-                    <ImQuill></ImQuill>
-                </div>
-            
-                <div className="signUp btnOverlap" onClick={null}>
+           
+            <Link to="/Login" className="signIn" >
+                <div className="btnCircleFilled"></div>
+                SIGN IN__
+                <ImQuill></ImQuill>
+            </Link>
+                <Link to="/Register" className="signUp btnOverlap" >
                     <div className="btnCircleFilled"></div>
                     SIGN UP__
                     <ImQuill></ImQuill>
-                </div>
-            
+            </Link>
             <div className='QuillIcon'><RiQuillPenLine></RiQuillPenLine></div>
             
         </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {BiSave, BiSearch} from 'react-icons/bi'
 import { BsSearch } from "react-icons/bs"
+import { Link } from 'react-router-dom';
 import UserListings from './UserListings';
 
 const UserPage = () => {
@@ -83,11 +84,10 @@ const UserPage = () => {
 
         // const body = await response.json()// parses JSON response into native JavaScript objects
         // console.log(body)
-
-    
-        const filteredListing = showUser.Listings.filter(element => !element.name==listingID)
+        
+        const filteredListing = showUser.Listings.filter(element => element.name!=listingID)
         editUser(prevState => ({...prevState, Listings: filteredListing}))
-        console.log(filteredListing)
+        //console.log(filteredListing) //testing
     }
 
     return (
@@ -115,7 +115,7 @@ const UserPage = () => {
                     
                     <UserListings Listings={showUser.Listings} DeleteBtn={DeleteListing}></UserListings>
                     <br/>
-                    <button className='SavePBtn' ><BiSearch></BiSearch>Add</button>
+                    <Link to='/Search' className='SavePBtn' ><BiSearch></BiSearch>ADD</Link>
                     
                 </div>
     
