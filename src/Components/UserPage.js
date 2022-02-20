@@ -44,6 +44,11 @@ const UserPage = () => {
 
     //"https://swapi.dev/api/people/1/?format=json"
 
+    function AlterUser (field, value) {
+        //ListingUpdate = showListing;
+        sampleUser[`${field}`] = value;
+        console.log(sampleUser);
+    }
 
     async function UpdateUser() {
 
@@ -97,16 +102,16 @@ const UserPage = () => {
                 <div className="userFields">
 
                     <label className='Fieldlabel'>Name</label>
-                    <input name="name" type="text" className="fBar" value={showUser.name} placeholder="Name" onChange={(e) => editUser(e.target.value)}></input>
+                    <input name="name" type="text" className="fBar" value={showUser.name} placeholder="Name" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>Address</label>
-                    <input name="address" type="text" className="fBar" value={showUser.address} placeholder="Address" onChange={(e) => editUser(e.target.value)}></input>
+                    <input name="address" type="text" className="fBar" value={showUser.address} placeholder="Address" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>E-mail</label>
-                    <input name="email" type="text" className="fBar" value={showUser.email} placeholder="E-mail" onChange={(e) => editUser(e.target.value)}></input>
+                    <input name="email" type="text" className="fBar" value={showUser.email} placeholder="E-mail" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>Phone#</label> 
-                    <input name="Phone" type="text" className="fBar" value={showUser.Phone} placeholder="Phone" onChange={(e) => editUser(e.target.value)}></input>
+                    <input name="Phone" type="text" className="fBar" value={showUser.Phone} placeholder="Phone" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
 
                     <button className='SavePBtn' onClick={()=>UpdateUser()}><BiSave></BiSave>Save</button>

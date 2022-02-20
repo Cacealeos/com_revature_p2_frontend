@@ -6,6 +6,10 @@ import { Redirect, Link } from "react-router-dom"
 const Login = () => {
 
     const [showUser, editUser] = useState({
+
+    });
+
+    const newUser = {
         FName:  "",
         LName:  "",
         Email:  "",
@@ -13,7 +17,7 @@ const Login = () => {
         passwd: "",
         cfpasswd:   ""
 
-    });
+    }
     const [REQ, EnableREQ] = useState(false)
 
     const REQUEST_DESTINATION = "http://localhost:8080";
@@ -38,12 +42,19 @@ const Login = () => {
         console.log(body)
     }
 
+    function AlterUser (field, value) {
+        //ListingUpdate = showListing;
+        newUser[`${field}`] = value;
+        console.log(newUser);
+    }
+
     function checkFields () {
         console.log(REQ)
-        const foo = false;
-
-        Object.keys(showUser).filter(element => element!="Phone").forEach(key => {
-            if(showUser.key === "")
+        let foo = false;
+        console.log(newUser)
+        Object.keys(newUser).filter(element => element!="Phone").forEach(key => {
+            console.log(newUser[`${key}`])
+            if(newUser[`${key}`] == "")
             {
                 foo = true
                 return
@@ -53,6 +64,7 @@ const Login = () => {
         if(foo)
         EnableREQ(true)
         else
+        editUser(newUser);
         CreateUser()
         
     }
@@ -64,8 +76,6 @@ const Login = () => {
     else
     return (
         <div className="LoginPage">
-
-            
 
             <div className="loginImg"></div>
 
@@ -87,12 +97,12 @@ const Login = () => {
                     <br/>
                     <div className='loginInline'>
                         <div className='loginBlock'>
-                            <span>*</span><input className="loginField" name="FName" type="text" onChange={(e) => editUser(e.target.value)} placeholder="First Name"></input><br/>
-                            { <>{(!showUser.FName && REQ) && <label className='RequiredText'>This field is required.</label>}</> }
+                            <span>*</span><input className="loginField" name="FName" type="text" onChange={(e) => AlterUser(e.target.name, e.target.value)} placeholder="First Name"></input><br/>
+                            { <>{(!newUser.FName && REQ) && <label className='RequiredText'>This field is required.</label>}</> }
                         </div>
                         <div className='loginBlock'>
-                            <span>*</span><input className="loginField" name="LName" type="text" onChange={(e) => editUser(e.target.value)} placeholder="Last Name"></input><br/>
-                            { <>{(!showUser.LName && REQ) && <label className='RequiredText'>This field is required.</label>}</> }
+                            <span>*</span><input className="loginField" name="LName" type="text" onChange={(e) => AlterUser(e.target.name, e.target.value)} placeholder="Last Name"></input><br/>
+                            { <>{(!newUser.LName && REQ) && <label className='RequiredText'>This field is required.</label>}</> }
                         </div>
                     </div>
                    
@@ -100,24 +110,24 @@ const Login = () => {
 
                     <div className='loginInline'>
                         <div className='loginBlock'>
-                            <span>*</span><input className="loginField" name="Email" type="text" onChange={(e) => editUser(e.target.value)} placeholder="Email"></input><br/>
-                            { <>{(!showUser.Email && REQ) && <label className='RequiredText'>This field is required.</label>}</> }
+                            <span>*</span><input className="loginField" name="Email" type="text" onChange={(e) => AlterUser(e.target.name, e.target.value)} placeholder="Email"></input><br/>
+                            { <>{(!newUser.Email && REQ) && <label className='RequiredText'>This field is required.</label>}</> }
                         </div>
                     
                         <div className='loginBlock'>
                             <br/>
-                            <input className="loginField" name="Phone" type="text" onChange={(e) => editUser(e.target.value)} placeholder="Phone (Optional)"></input><br/>
+                            <input className="loginField" name="Phone" type="text" onChange={(e) => AlterUser(e.target.name, e.target.value)} placeholder="Phone (Optional)"></input><br/>
                         </div>
                     </div>
                     <div className='loginInline'>
                         <div className='loginBlock'>
-                            <span>*</span><input className="loginField" name="passwd" type="text" onChange={(e) => editUser(e.target.value)} placeholder="Enter Password"></input><br/>
-                            { <>{(!showUser.passwd && REQ) && <label className='RequiredText'>This field is required.</label>}</> }
+                            <span>*</span><input className="loginField" name="passwd" type="text" onChange={(e) => AlterUser(e.target.name, e.target.value)} placeholder="Enter Password"></input><br/>
+                            { <>{(!newUser.passwd && REQ) && <label className='RequiredText'>This field is required.</label>}</> }
                         </div>
                         <div className='loginBlock'>
-                            <span>*</span><input className="loginField" name="cfpasswd" type="text" onChange={(e) => editUser(e.target.value)} placeholder="Confirm Password"></input><br/>
-                            { <>{(!showUser.cfpasswd && REQ) && <label className='RequiredText'>This field is required.</label>}</> }
-                            { <>{(REQ && (showUser.cfpasswd != showUser.passwd)) && <label className='RequiredText'>Passwords don't match.</label>}</> }
+                            <span>*</span><input className="loginField" name="cfpasswd" type="text" onChange={(e) => AlterUser(e.target.name, e.target.value)} placeholder="Confirm Password"></input><br/>
+                            { <>{(!newUser.cfpasswd && REQ) && <label className='RequiredText'>This field is required.</label>}</> }
+                            { <>{(REQ && (newUser.cfpasswd != newUser.passwd)) && <label className='RequiredText'>Passwords don't match.</label>}</> }
                         </div>
                     </div>
                 </div>
