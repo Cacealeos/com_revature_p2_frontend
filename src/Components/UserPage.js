@@ -38,9 +38,7 @@ const UserPage = ({existingUser}) => {
                 Baths: 3,
                 Price: 265000
             }]
-    }
-
-    const [showUser, editUser] = useState(sampleUser);
+    };
     
     const REQUEST_DESTINATION = "http://localhost:8080/Request";
 
@@ -104,16 +102,16 @@ const UserPage = ({existingUser}) => {
                 <div className="userFields">
 
                     <label className='Fieldlabel'>Name</label>
-                    <input name="name" type="text" className="fBar" value={showUser.name} placeholder="Name" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="name" type="text" className="fBar" value={sampleUser.name} placeholder="Name" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>Address</label>
-                    <input name="address" type="text" className="fBar" value={showUser.address} placeholder="Address" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="address" type="text" className="fBar" value={sampleUser.address} placeholder="Address" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>E-mail</label>
-                    <input name="email" type="text" className="fBar" value={showUser.email} placeholder="E-mail" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="email" type="text" className="fBar" value={sampleUser.email} placeholder="E-mail" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>Phone#</label> 
-                    <input name="Phone" type="text" className="fBar" value={showUser.Phone} placeholder="Phone" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="Phone" type="text" className="fBar" value={sampleUser.Phone} placeholder="Phone" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
 
                     <button className='SavePBtn' onClick={()=>UpdateUser()}><BiSave></BiSave>Save</button>
