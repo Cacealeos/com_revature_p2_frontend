@@ -39,9 +39,7 @@ const Login = () => {
         });
 
         const body = await response.json()// parses JSON response into native JavaScript objects
-        
         console.log(body)
-        
         
     }
 
