@@ -1,34 +1,31 @@
+import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Landing from './Components/Landing'
+import UserPage from './Components/UserPage'
+import Estate from './Components/Estate'
+import Login from './Components/Login'
+import EditEstate from './Components/EditEstate'
 
 
-import { BrowserRouter, Routes, Link, Route } from 'react-router-dom'
-
-import './App.css';
-import Landing from './Components/Landing';
-import UserPage from './Components/UserPage';
-import Estate from './Components/Estate';
-import LandingHeader from './Components/LandingHeader'; 
-
-import Login from './Components/Login';
-//<Landing></Landing>
-//<UserPage></UserPage>
-//<Estate></Estate>
 function App() {
   return (
     <div className="App">
+      <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Landing/>} exact></Route>{/*****************Landing Page with links to Reg/Login*/}
+              <Route path="/Login" element={<Login/>}></Route>{/*****************Login to existing account*/}
+              <Route path="/Register" element={<Login/>}></Route>{/*****************Create User to existing account*/}
+              <Route path="/User" element={<UserPage/>}></Route>{/*****************Edit Profile and Listings of existing account*/}
+              <Route path="/Search" element={null}></Route>{/********************************View and search for listings*/}
+              <Route path="/RegisterListing" element={<EditEstate/>}></Route>{/*****************Add New Listing */}
+              <Route path="/EditListing" element={<EditEstate/>}></Route>{/*****************Edit Existing Listing*/}
+              <Route path="/View" element={<Estate/>}></Route>{/****************************View/Add an Existing Listing*/}
+            </Routes>
+        </BrowserRouter > 
       
-      <Login></Login>
       
-
     </div>
   );
 }
 
 export default App;
-
-{/* <BrowserRouter>
-            <Routes>
-              <Route path="/" component={LandingHeader} exact></Route>
-              <Route path="/LoginPage" component={Login}></Route>
-
-            </Routes>
-        </BrowserRouter > */}
