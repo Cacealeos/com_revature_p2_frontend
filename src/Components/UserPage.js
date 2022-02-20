@@ -4,17 +4,19 @@ import { BsSearch } from "react-icons/bs"
 import { Link } from 'react-router-dom';
 import UserListings from './UserListings';
 
-const UserPage = () => {
+const UserPage = ({existingUser}) => {
 //sample user could also be passed as arguement ideally when connected to a backend
 //const UserPage = ({SampleUser}) => {...}
 
+    // UPDATED KEY NAMES TO MATCH BACKEND - DAVID
     const sampleUser = {
-        name: "hippo",
-        address: "123 street Blvd.",
+        clientId: "57",
+        firstName: "Hippos",
+        lastName: "Arband",
+        // address: "123 Street Blvd.", No equivalent in db
         email: "hipposRBanned@gmail.com",
-        ID: "57",
-        Phone: "876-5309",
-        Listings: [
+        phoneNumber: "876-5309",
+        savedListings: [ // Stored as a Set in Java (if it matters)
             {
                 name: "Estate 1",
                 footage: 750,
@@ -40,7 +42,7 @@ const UserPage = () => {
 
     const [showUser, editUser] = useState(sampleUser);
     
-    const REQUEST_DESTINATION = "http://localhost:8080";
+    const REQUEST_DESTINATION = "http://localhost:8080/Request";
 
     //"https://swapi.dev/api/people/1/?format=json"
 
