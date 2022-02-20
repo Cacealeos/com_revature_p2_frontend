@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ImQuill } from "react-icons/im"
 import { GiMushroomHouse } from "react-icons/gi"
-import { Redirect, Link } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 const Login = () => {
 
@@ -19,11 +19,12 @@ const Login = () => {
 
     }
     const [REQ, EnableREQ] = useState(false)
+    const nav = useNavigate();
 
     const REQUEST_DESTINATION = "http://localhost:8080";
 
     async function CreateUser() {
-
+        
         const response = await fetch(REQUEST_DESTINATION ,{
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
@@ -40,6 +41,8 @@ const Login = () => {
         const body = await response.json()// parses JSON response into native JavaScript objects
         
         console.log(body)
+        
+        
     }
 
     function AlterUser (field, value) {
@@ -64,16 +67,18 @@ const Login = () => {
         if(foo)
         EnableREQ(true)
         else
+        {
         editUser(newUser);
         CreateUser()
-        
+        nav("/")
+        }
     }
 
-    if(false)
-    return (
-        <Redirect from="/" to="/home" />
-    )
-    else
+    // if(add)
+    // return (
+    //     <Redirect from="/Login" to="/" />
+    // )
+    //else
     return (
         <div className="LoginPage">
 
