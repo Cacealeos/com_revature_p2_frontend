@@ -9,7 +9,7 @@ const UserListings = ({DeleteBtn, Listings}) => {
     return (
         Listings.map(estates => {
             return (
-                <div>
+                <>
                     <br/>
                 <label className="estateLabel"><GiHouse></GiHouse>{estates.name}
                  
@@ -17,13 +17,13 @@ const UserListings = ({DeleteBtn, Listings}) => {
                 <Link to='/View' className='ExternalLinkspan'><BiLinkExternal></BiLinkExternal></Link></label>
                     <div className="sampleAppoints">
                         
-                        <div className="estateFieldDisplay">Footage: {estates.footage}sq.ft.</div>
+                        <div className="estateFieldDisplay">Footage: {estates.footage} sqr. ft.</div>
                         <div className="estateFieldDisplay">Beds: {estates.Beds}</div>
                         <div className="estateFieldDisplay">Baths: {estates.Baths}</div>
                         <div className="estateFieldDisplay">Price Range: ${estates.Price}</div>
                         
                     </div>
-                </div>
+                </>
                 
             )
         })
