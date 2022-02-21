@@ -11,16 +11,16 @@ const UserListings = ({DeleteBtn, Listings}) => {
             return (
                 <>
                     <br/>
-                <label className="estateLabel"><GiHouse></GiHouse>{estates.name}
+                <label className="estateLabel"><GiHouse></GiHouse>{estates.address}
                  
-                <span className='ExternalLinkspan'><MdDelete onClick={()=> DeleteBtn(estates.name)}></MdDelete></span>
+                <span className='ExternalLinkspan'><MdDelete onClick={()=> DeleteBtn(estates.listingId)}></MdDelete></span>
                 <Link to='/View' className='ExternalLinkspan'><BiLinkExternal></BiLinkExternal></Link></label>
                     <div className="sampleAppoints">
                         
-                        <div className="estateFieldDisplay">Footage: {estates.footage} sqr. ft.</div>
-                        <div className="estateFieldDisplay">Beds: {estates.Beds}</div>
-                        <div className="estateFieldDisplay">Baths: {estates.Baths}</div>
-                        <div className="estateFieldDisplay">Price Range: ${estates.Price}</div>
+                        <div className="estateFieldDisplay">Footage: {estates.squareFt} sqr. ft.</div>
+                        <div className="estateFieldDisplay">Beds: {estates.bedrooms}</div>
+                        <div className="estateFieldDisplay">Baths: {estates.bathrooms}</div>
+                        <div className="estateFieldDisplay">Price Range: ${estates.price}</div>
                         
                     </div>
                 </>

@@ -1,44 +1,17 @@
 import { useState } from 'react';
 import {BiSave, BiSearch} from 'react-icons/bi'
 import { BsSearch } from "react-icons/bs"
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import UserListings from './UserListings';
 
 const UserPage = () => {
 //sample user could also be passed as arguement ideally when connected to a backend
-//const UserPage = ({SampleUser}) => {...}
+//const UserPage = ({sampleUser}) => {...}
 
-    const [showUser, editUser] = useState({
-        name: "hippo",
-        address: "123 street Blvd.",
-        email: "hipposRBanned@gmail.com",
-        ID: "57",
-        Phone: "876-5309",
-        Listings: [
-            {
-                name: "Estate 1",
-                footage: 750,
-                Beds: 2,
-                Baths: 2,
-                Price: 190000
-            },
-            {
-                name: "Estate 2",
-                footage: 1850,
-                Beds: 4,
-                Baths: 5,
-                Price: 430000
-            },
-            {
-                name: "Estate 3",
-                footage: 1100,
-                Beds: 3,
-                Baths: 3,
-                Price: 265000
-            }]
-    });
-    
-    const sampleUser = {showUser};
+    const location = useLocation()
+    console.log(location.state)
+    const [showUser, editUser] = useState(location.state);
+    //const [input, setInput] = useState(5)
 
     const REQUEST_DESTINATION = "http://localhost:8080";
 
@@ -46,8 +19,10 @@ const UserPage = () => {
 
     function AlterUser (field, value) {
         //ListingUpdate = showListing;
-        sampleUser[`${field}`] = value;
-        console.log(sampleUser);
+        // let sampleUser = showUser;
+        // sampleUser[`${field}`] = value;
+        editUser({[field]: value})
+        console.log(showUser)
     }
 
     async function UpdateUser() {
@@ -102,25 +77,27 @@ const UserPage = () => {
                 <div className="userFields">
 
                     <label className='Fieldlabel'>Name</label>
-                    <input name="name" type="text" className="fBar" value={sampleUser.name} placeholder="Name" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="name" type="text" className="fBar" value={showUser.name} placeholder="Name" onChange={e => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>Address</label>
-                    <input name="address" type="text" className="fBar" value={sampleUser.address} placeholder="Address" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="address" type="text" className="fBar" value={showUser.address} placeholder="Address" onChange={e => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>E-mail</label>
-                    <input name="email" type="text" className="fBar" value={sampleUser.email} placeholder="E-mail" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="email" type="text" className="fBar" value={showUser.email} placeholder="E-mail" onChange={e => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>Phone#</label> 
-                    <input name="Phone" type="text" className="fBar" value={sampleUser.Phone} placeholder="Phone" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="Phone" type="text" className="fBar" value={showUser.Phone} placeholder="Phone" onChange={e => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
 
+                    
+                    {showUser.realterID && <Link className='SavePBtn' to='/EditListing' state={showUser}><BiSave></BiSave>Register Listing</Link>}
                     <button className='SavePBtn' onClick={()=>UpdateUser()}><BiSave></BiSave>Save</button>
                     <br/><br/>
                     <label className='Fieldlabel'>Bookmarked Listings</label>
                     
-                    <UserListings Listings={showUser.Listings} DeleteBtn={DeleteListing}></UserListings>
+                    <UserListings Listings={showUser.Listings} DeleteBtn={DeleteListing} User={showUser}></UserListings>
                     <br/>
-                    <Link to='/Search' className='SavePBtn' ><BiSearch></BiSearch>ADD</Link>
+                    <Link to='/Search' state={showUser} className='SavePBtn' ><BiSearch></BiSearch>ADD</Link>
                     
                 </div>
     
