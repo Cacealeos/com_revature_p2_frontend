@@ -1,11 +1,15 @@
-import { GiMushroomHouse } from "react-icons/gi"
+import { GiMushroomHouse, GiReturnArrow } from "react-icons/gi"
 import { ImQrcode } from "react-icons/im"
 import { VscSaveAs } from 'react-icons/vsc'
 import { useState } from "react"
+import { useLocation } from "react-router"
 import ThumbnailUrlBlock from "./ThumbnailUrlBlock"
+import { Link } from "react-router-dom"
 
 
-const EditEstate = () => {
+const EditEstate = ({User}) => {
+
+    const nav = useLocation()
 
 
     const [showListing, editListing] = useState({
@@ -54,10 +58,6 @@ const EditEstate = () => {
         ListingUpdate[`${field}`] = value;
         console.log(ListingUpdate);
     }
-
-    // function craftUrl(url) {
-    //     newURL = url;
-    // }
 
     function AddUrl () {
         if(newURL="")
@@ -114,7 +114,11 @@ const EditEstate = () => {
     }
     
     return (
+        <>
+        
+        
         <div className="EditEstatePage">
+        
             <div className="EditEstateHeader">
                 <div className="EditLogoBubble">
                     <span className="grayLogo">REAL<GiMushroomHouse></GiMushroomHouse></span><span className="aquaLogo">ESTATE</span>
@@ -124,7 +128,7 @@ const EditEstate = () => {
             <br/>
             <div className="userBorder1"></div>
             <div className="EditEstatePocket">
-                
+            <div className='CreatListingBtn ProfileReturnBtn'><Link to="/User"  >Profile<GiReturnArrow></GiReturnArrow></Link></div>
                 <b><label>BROKER REGISTRATION FORM</label></b>
                 <br/>
                 <label>Please indicate below what Firm you represent...</label>
@@ -244,7 +248,7 @@ const EditEstate = () => {
 
             <div className="userBorder2"></div>
         </div>
-        
+        </>
     )
 }
 

@@ -15,17 +15,16 @@ const Estate = () => {
         borderColor: "aqua"
       };
 
-    // UPDATED KEY NAMES TO MATCH BACKEND - DAVID
     const [showEstate, editEstate] = useState({
-        listingId: "",
-        longitude: "-79.955894",
-        latitude: "39.629524",
-        // name: "Hippo", Does not exist in db
+        ID: "",
+        long: "-79.955894",
+        lat: "39.629524",
+        name: "Hippo",
         address: "123 hippo street",
-        squareFt: "1500",
+        footage: "1500",
         price: "125000",
-        bedrooms: "4",
-        bathrooms: "3",
+        beds: "4",
+        baths: "3",
         urls: ["https://raw.githubusercontent.com/Cacealeos/com_revature_p2_frontend/main/src/imgs/Suburb.jpg"]
     })
     const [map, setMap] = useState(null)

@@ -3,11 +3,11 @@ import { useNavigate } from "react-router"
 
 const LandingSearchBar = () => {
     const nav = useNavigate()
-
+//state: {${event.target.value}}
     function Search (event) {
         console.log(event.key)
         if(event.key === 'Enter')
-            nav(`/Search/${event.target.value}`)
+            nav(`/Search`)
 
     }
 

@@ -1,12 +1,13 @@
 import {ImQuill} from 'react-icons/im'
 import {RiQuillPenLine} from 'react-icons/ri'
 import {Link} from 'react-router-dom'
+import Login from './Login'
 
 const LoginButtons = () => {
+
     return (
         <div className="loginBtn">
-            
-           
+
             <Link to="/Login" className="signIn" >
                 <div className="btnCircleFilled"></div>
                 SIGN IN__

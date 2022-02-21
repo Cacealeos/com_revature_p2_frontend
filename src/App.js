@@ -14,8 +14,8 @@ function App() {
       <BrowserRouter>
             <Routes>
               <Route path="/" element={<Landing/>} exact></Route>{/*****************Landing Page with links to Reg/Login*/}
-              <Route path="/Login" element={<Login registerpage = {false}/>}></Route>{/*****************Login to existing account*/}
-              <Route path="/Register" element={<Login registerpage = {true}/>}></Route>{/*****************Create User to existing account*/}
+              <Route path="/Login" element={<Login/>}></Route>{/*****************Login to existing account*/}
+              <Route path="/Register" element={<Login/>}></Route>{/*****************Create User to existing account*/}
               <Route path="/User" element={<UserPage/>}></Route>{/*****************Edit Profile and Listings of existing account*/}
               <Route path="/Search" element={<Results/>}></Route>{/********************************View and search for listings*/}
               <Route path="/Search/*" element={<Results/>}></Route>{/********************************View and search for listings*/}

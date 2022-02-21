@@ -1,55 +1,28 @@
 import { useState } from 'react';
 import {BiSave, BiSearch} from 'react-icons/bi'
 import { BsSearch } from "react-icons/bs"
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import UserListings from './UserListings';
 
-const UserPage = ({existingUser}) => {
+const UserPage = () => {
 //sample user could also be passed as arguement ideally when connected to a backend
-//const UserPage = ({SampleUser}) => {...}
+//const UserPage = ({sampleUser}) => {...}
 
-    // UPDATED KEY NAMES TO MATCH BACKEND - DAVID
-    const sampleUser = {
-        clientId: "57",
-        firstName: "Hippos",
-        lastName: "Arband",
-        // address: "123 Street Blvd.", No equivalent in db
-        email: "hipposRBanned@gmail.com",
-        phoneNumber: "876-5309",
-        savedListings: [ // Stored as a Set in Java (if it matters)
-            {
-                address: "Estate 1",
-                squareFt: 750,
-                bedrooms: 2,
-                bathrooms: 2,
-                price: 190000
-            },
-            {
-                address: "Estate 2",
-                squareFt: 1850,
-                bedrooms: 4,
-                bathrooms: 5,
-                price: 430000
-            },
-            {
-                address: "Estate 3",
-                squareFt: 1100,
-                bedrooms: 3,
-                bathrooms: 3,
-                price: 265000
-            }]
-    };
+    const location = useLocation()
+    console.log(location.state)
+    const [showUser, editUser] = useState(location.state);
+    //const [input, setInput] = useState(5)
 
-    const [showUser, editUser] = useState(sampleUser);
-    
-    const REQUEST_DESTINATION = "http://localhost:8080/Request";
+    const REQUEST_DESTINATION = "http://localhost:8080";
 
     //"https://swapi.dev/api/people/1/?format=json"
 
     function AlterUser (field, value) {
         //ListingUpdate = showListing;
-        sampleUser[`${field}`] = value;
-        console.log(sampleUser);
+        // let sampleUser = showUser;
+        // sampleUser[`${field}`] = value;
+        editUser({[field]: value})
+        console.log(showUser)
     }
 
     async function UpdateUser() {
@@ -104,25 +77,27 @@ const UserPage = ({existingUser}) => {
                 <div className="userFields">
 
                     <label className='Fieldlabel'>Name</label>
-                    <input name="name" type="text" className="fBar" value={sampleUser.firstName} placeholder="First Name" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="name" type="text" className="fBar" value={showUser.name} placeholder="Name" onChange={e => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
-                    <label className='Fieldlabel'>Name</label>
-                    <input name="name" type="text" className="fBar" value={sampleUser.lastName} placeholder="Last Name" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <label className='Fieldlabel'>Address</label>
+                    <input name="address" type="text" className="fBar" value={showUser.address} placeholder="Address" onChange={e => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>E-mail</label>
-                    <input name="email" type="text" className="fBar" value={sampleUser.email} placeholder="E-mail" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="email" type="text" className="fBar" value={showUser.email} placeholder="E-mail" onChange={e => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>Phone#</label> 
-                    <input name="Phone" type="text" className="fBar" value={sampleUser.phoneNumber} placeholder="Phone" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="Phone" type="text" className="fBar" value={showUser.Phone} placeholder="Phone" onChange={e => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
 
+                    
+                    {showUser.realterID && <Link className='SavePBtn' to='/EditListing' state={showUser}><BiSave></BiSave>Register Listing</Link>}
                     <button className='SavePBtn' onClick={()=>UpdateUser()}><BiSave></BiSave>Save</button>
                     <br/><br/>
                     <label className='Fieldlabel'>Bookmarked Listings</label>
                     
-                    <UserListings Listings={showUser.savedListings} DeleteBtn={DeleteListing}></UserListings>
+                    <UserListings Listings={showUser.Listings} DeleteBtn={DeleteListing} User={showUser}></UserListings>
                     <br/>
-                    <Link to='/Search' className='SavePBtn' ><BiSearch></BiSearch>ADD</Link>
+                    <Link to='/Search' state={showUser} className='SavePBtn' ><BiSearch></BiSearch>ADD</Link>
                     
                 </div>
     

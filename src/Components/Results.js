@@ -4,7 +4,8 @@ import { BsSearch } from "react-icons/bs"
 import UserListings from "./UserListings";
 import LandingSearchBar from "./LandingSearchBar";
 import LandingHeader from "./LandingHeader";
-import { GiMushroomHouse } from "react-icons/gi";
+import { GiMushroomHouse, GiReturnArrow } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 const Results = () => {
 
@@ -28,57 +29,6 @@ const Results = () => {
 
     console.log(results)
 
-    // const [showUser, editUser] = useState({
-    //     name: "hippo",
-    //     address: "123 street Blvd.",
-    //     email: "hipposRBanned@gmail.com",
-    //     ID: "57",
-    //     Phone: "876-5309",
-    //     Listings: [
-    //         {
-    //             name: "Estate 1",
-    //             footage: 750,
-    //             Beds: 2,
-    //             Baths: 2,
-    //             Price: 190000
-    //         },
-    //         {
-    //             name: "Estate 2",
-    //             footage: 1850,
-    //             Beds: 4,
-    //             Baths: 5,
-    //             Price: 430000
-    //         },
-    //         {
-    //             name: "Estate 3",
-    //             footage: 1100,
-    //             Beds: 3,
-    //             Baths: 3,
-    //             Price: 265000
-    //         },
-    //         {
-    //             name: "Estate 4",
-    //             footage: 750,
-    //             Beds: 2,
-    //             Baths: 2,
-    //             Price: 130000
-    //         },
-    //         {
-    //             name: "Estate 5",
-    //             footage: 1850,
-    //             Beds: 4,
-    //             Baths: 5,
-    //             Price: 388000
-    //         },
-    //         {
-    //             name: "Estate 6",
-    //             footage: 1100,
-    //             Beds: 3,
-    //             Baths: 3,
-    //             Price: 400000
-    //         }]
-    // });
-    
     const LISTING_BYADDRESS_REQUEST_DESTINATION = "http://localhost:8080/listings/search/address";
     const LISTING_BYPRICE_REQUEST_DESTINATION = "http://localhost:8080/listings/search/price";
     const LISTING_BYBATHROOMS_REQUEST_DESTINATION = "http://localhost:8080/listings/search/bathrooms";
@@ -156,10 +106,11 @@ const Results = () => {
             
             <br/>
             <div className="SearchOptions">
-            <div className="searchBar">
-                <BsSearch></BsSearch>
-                <input className="sBar" placeholder="Search Houses" onKeyDown={(e) => (addressSearch(e))}/>
-            </div>
+                <div className='CreatListingBtn ProfileReturnBtn'><Link to="/User"  >Profile<GiReturnArrow></GiReturnArrow></Link></div>
+                <div className="searchBar">
+                    <BsSearch></BsSearch>
+                    <input className="sBar" placeholder="Search Houses" onKeyDown={(e) => (addressSearch(e))}/>
+                </div>
                 <p>Advanced Search Options</p>
                 
                 <input id="price" name="price" type="radio" value="200000" onChange={(e) => priceSearch(e)}></input><label for="price">Under 200,000</label>
