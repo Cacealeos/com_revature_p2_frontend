@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { BsSearch } from "react-icons/bs"
 import UserListings from "./UserListings";
 import LandingSearchBar from "./LandingSearchBar";
 import LandingHeader from "./LandingHeader";
@@ -16,65 +17,134 @@ const Results = () => {
 
     }
 
-    const [showUser, editUser] = useState({
-        name: "hippo",
-        address: "123 street Blvd.",
-        email: "hipposRBanned@gmail.com",
-        ID: "57",
-        Phone: "876-5309",
-        Listings: [
-            {
-                name: "Estate 1",
-                footage: 750,
-                Beds: 2,
-                Baths: 2,
-                Price: 190000
-            },
-            {
-                name: "Estate 2",
-                footage: 1850,
-                Beds: 4,
-                Baths: 5,
-                Price: 430000
-            },
-            {
-                name: "Estate 3",
-                footage: 1100,
-                Beds: 3,
-                Baths: 3,
-                Price: 265000
-            },
-            {
-                name: "Estate 4",
-                footage: 750,
-                Beds: 2,
-                Baths: 2,
-                Price: 130000
-            },
-            {
-                name: "Estate 5",
-                footage: 1850,
-                Beds: 4,
-                Baths: 5,
-                Price: 388000
-            },
-            {
-                name: "Estate 6",
-                footage: 1100,
-                Beds: 3,
-                Baths: 3,
-                Price: 400000
-            }]
-    });
-    
-    
+    const listingSearchParams = {
+        address: "",
+        price: "",
+        bathrooms: "",
+        bedrooms: ""
+    }
 
-    const REQUEST_DESTINATION = "http://localhost:8080";
+    const [results, buildResults] = useState([])
+
+    console.log(results)
+
+    // const [showUser, editUser] = useState({
+    //     name: "hippo",
+    //     address: "123 street Blvd.",
+    //     email: "hipposRBanned@gmail.com",
+    //     ID: "57",
+    //     Phone: "876-5309",
+    //     Listings: [
+    //         {
+    //             name: "Estate 1",
+    //             footage: 750,
+    //             Beds: 2,
+    //             Baths: 2,
+    //             Price: 190000
+    //         },
+    //         {
+    //             name: "Estate 2",
+    //             footage: 1850,
+    //             Beds: 4,
+    //             Baths: 5,
+    //             Price: 430000
+    //         },
+    //         {
+    //             name: "Estate 3",
+    //             footage: 1100,
+    //             Beds: 3,
+    //             Baths: 3,
+    //             Price: 265000
+    //         },
+    //         {
+    //             name: "Estate 4",
+    //             footage: 750,
+    //             Beds: 2,
+    //             Baths: 2,
+    //             Price: 130000
+    //         },
+    //         {
+    //             name: "Estate 5",
+    //             footage: 1850,
+    //             Beds: 4,
+    //             Baths: 5,
+    //             Price: 388000
+    //         },
+    //         {
+    //             name: "Estate 6",
+    //             footage: 1100,
+    //             Beds: 3,
+    //             Baths: 3,
+    //             Price: 400000
+    //         }]
+    // });
+    
+    const LISTING_BYADDRESS_REQUEST_DESTINATION = "http://localhost:8080/listings/search/address";
+    const LISTING_BYPRICE_REQUEST_DESTINATION = "http://localhost:8080/listings/search/price";
+    const LISTING_BYBATHROOMS_REQUEST_DESTINATION = "http://localhost:8080/listings/search/bathrooms";
+    const LISTING_BYBEDROOMS_REQUEST_DESTINATION = "http://localhost:8080/listings/search/bedrooms";
+    // const REALTOR_REQUEST_DESTINATION = "http://localhost:8080/realtors/search";
+
+    function addressSearch(event) {
+        console.log(event.target.name)
+
+        if (event.key === 'Enter') {
+            listingSearchParams.address = event.target.value;
+            
+            listingSearch(LISTING_BYADDRESS_REQUEST_DESTINATION.concat("?address=", listingSearchParams.address))
+        } 
+    }
+
+    function priceSearch(event) {
+        console.log(event.target)
+
+        listingSearchParams.price = event.target.value;
+            
+        listingSearch(LISTING_BYPRICE_REQUEST_DESTINATION.concat("?price=", listingSearchParams.price))
+    }
+
+    function bathroomsSearch(event) {
+        console.log(event.name)
+
+        listingSearchParams.bathrooms = event.target.value;
+            
+        listingSearch(LISTING_BYBATHROOMS_REQUEST_DESTINATION.concat("?bathrooms=", listingSearchParams.bathrooms))
+    }
+
+    function bedroomsSearch(event) {
+        console.log(event.target)
+
+        if (event.target.name == "BedroomButton") {
+            if (listingSearchParams.bedrooms == '') {
+                return;
+            }
+            listingSearch(LISTING_BYBEDROOMS_REQUEST_DESTINATION.concat("?bedrooms=", listingSearchParams.bedrooms))
+        } else {
+            listingSearchParams.bedrooms = event.target.value;
+        }
+    }
+
+    async function listingSearch(address) {
+
+        const response = await fetch(address, {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'omit', // include, *same-origin, omit
+            headers: {
+            'Content-Type': 'application/json'// 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            // body: JSON.stringify(listingSearchParams) // body data type must match "Content-Type" header
+        });
+
+        const body = await response.json()// parses JSON response into native JavaScript objects
+        buildResults(body);
+    }
+
 
     //"https://swapi.dev/api/people/1/?format=json"
-
-
-
 
     return (
         <div className="SearchPage">
@@ -86,49 +156,40 @@ const Results = () => {
             
             <br/>
             <div className="SearchOptions">
-                <LandingSearchBar></LandingSearchBar>
+            <div className="searchBar">
+                <BsSearch></BsSearch>
+                <input className="sBar" placeholder="Search Houses" onKeyDown={(e) => (addressSearch(e))}/>
+            </div>
                 <p>Advanced Search Options</p>
                 
-                <input id="price" name="range" type="radio"></input><label for="price">Under 200,000</label>
-                <input id="price" name="range" type="radio"></input><label for="price">Under 300,000</label>
-                <input id="price" name="range" type="radio"></input><label for="price">Under 400,000</label>
-                <input id="price" name="range" type="radio" checked></input><label for="price">none</label>
+                <input id="price" name="price" type="radio" value="200000" onChange={(e) => priceSearch(e)}></input><label for="price">Under 200,000</label>
+                <input id="price" name="price" type="radio" value="300000" onChange={(e) => priceSearch(e)}></input><label for="price">Under 300,000</label>
+                <input id="price" name="price" type="radio" value="400000" onChange={(e) => priceSearch(e)}></input><label for="price">Under 400,000</label>
+                <input id="price" name="price" type="radio" checked></input><label for="price">none</label>
                 <br/>
-                <label for="">State</label>
-                <select name="State" onChange={null}>
-                    <option>-</option>
-                    <option>TX</option>
-                    <option>AR</option>
-                    <option>AZ</option>
-                    <option>CT</option>
-                    <option>DW</option>
-                    <option>NH</option>
-                    <option>SD</option>
-                    <option>CA</option>
-                    <option>NY</option>
-                </select>
                 <label for="">Beds</label>
-                <select name="Beds" onChange={null}>
-                    <option>-</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <select name="bedrooms" onClick={(e) => bedroomsSearch(e)}>
+                    <option>0</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                 </select>
+                <button name="BedroomButton" onClick={(e) => bedroomsSearch(e)}>FILTER</button>
                 <label for="">Baths</label>
-                <select name="Baths" onChange={null}>
-                    <option>-</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <select name="bathrooms" onClick={(e) => bathroomsSearch(e)}>
+                    <option>0</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                 </select>
                 <label for="">Footage</label><input type="number"></input>
             </div>
             <br/>
             <div className="userBorder1"></div>
             <div className="SearchPocket">
-                <UserListings Listings={showUser.Listings} ></UserListings>
+                <UserListings Listings={results} ></UserListings>
             </div>
             
             <div className="userBorder2"></div>

@@ -18,27 +18,29 @@ const UserPage = ({existingUser}) => {
         phoneNumber: "876-5309",
         savedListings: [ // Stored as a Set in Java (if it matters)
             {
-                name: "Estate 1",
-                footage: 750,
-                Beds: 2,
-                Baths: 2,
-                Price: 190000
+                address: "Estate 1",
+                squareFt: 750,
+                bedrooms: 2,
+                bathrooms: 2,
+                price: 190000
             },
             {
-                name: "Estate 2",
-                footage: 1850,
-                Beds: 4,
-                Baths: 5,
-                Price: 430000
+                address: "Estate 2",
+                squareFt: 1850,
+                bedrooms: 4,
+                bathrooms: 5,
+                price: 430000
             },
             {
-                name: "Estate 3",
-                footage: 1100,
-                Beds: 3,
-                Baths: 3,
-                Price: 265000
+                address: "Estate 3",
+                squareFt: 1100,
+                bedrooms: 3,
+                bathrooms: 3,
+                price: 265000
             }]
     };
+
+    const [showUser, editUser] = useState(sampleUser);
     
     const REQUEST_DESTINATION = "http://localhost:8080/Request";
 
@@ -102,23 +104,23 @@ const UserPage = ({existingUser}) => {
                 <div className="userFields">
 
                     <label className='Fieldlabel'>Name</label>
-                    <input name="name" type="text" className="fBar" value={sampleUser.name} placeholder="Name" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="name" type="text" className="fBar" value={sampleUser.firstName} placeholder="First Name" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
-                    <label className='Fieldlabel'>Address</label>
-                    <input name="address" type="text" className="fBar" value={sampleUser.address} placeholder="Address" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <label className='Fieldlabel'>Name</label>
+                    <input name="name" type="text" className="fBar" value={sampleUser.lastName} placeholder="Last Name" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>E-mail</label>
                     <input name="email" type="text" className="fBar" value={sampleUser.email} placeholder="E-mail" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
                     <label className='Fieldlabel'>Phone#</label> 
-                    <input name="Phone" type="text" className="fBar" value={sampleUser.Phone} placeholder="Phone" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
+                    <input name="Phone" type="text" className="fBar" value={sampleUser.phoneNumber} placeholder="Phone" onChange={(e) => AlterUser(e.target.name, e.target.value)}></input>
                     <br/>
 
                     <button className='SavePBtn' onClick={()=>UpdateUser()}><BiSave></BiSave>Save</button>
                     <br/><br/>
                     <label className='Fieldlabel'>Bookmarked Listings</label>
                     
-                    <UserListings Listings={showUser.Listings} DeleteBtn={DeleteListing}></UserListings>
+                    <UserListings Listings={showUser.savedListings} DeleteBtn={DeleteListing}></UserListings>
                     <br/>
                     <Link to='/Search' className='SavePBtn' ><BiSearch></BiSearch>ADD</Link>
                     
