@@ -12,57 +12,59 @@ const EditEstate = ({AddListing}) => {
     const location = useLocation()
 
     const [showListing, editListing] = useState(location.state);
-    // console.log(showListing.managedListings.filter(lst => lst.listingId == showListing.ID).map(list => (list.address)))
-    console.log(showListing)
+    //console.log(showListing.managedListings.filter(lst => lst.listingId == showListing.ID))
+    console.log(showListing.managedListings.filter(lst => lst.listingId == showListing.ID)[0].address)
+    //console.log(showListing)
+
     
-    const ListingUpdate = {
-        realtorId: showListing.managedListings.filter(lst => lst.listingId == showListing.ID).map(list => (list.realtorId)),
-        Firm: "",
-        Name: "",
+
+    let ListingUpdate = {
+        realtorId: showListing.realtorId,
         address: "",
-        Owner: "",
-        State: "",
-        Title: "",
+        yearBuilt: "",
         bathrooms: "",
         bedrooms: "",
-        Offices: "",
         squareFt: "",
         price: "",
         longitude: "",
         latitude: "",
-        Zip: "",
-        Urls: []
+        // Urls: []
     }
+
+    if(!AddListing)
+    ListingUpdate = Object.assign({}, showListing.managedListings.filter(lst => lst.listingId == showListing.ID))
+
+    //console.log(ListingUpdate)
+
     const REQUEST_DESTINATION = "http://localhost:8080";
     var newURL = ""
 
     function AlterListing (field, value) {
         //ListingUpdate = showListing;
-        let sampleUser = Object.assign({}, showListing); 
-        sampleUser[`${field}`] = value;
-
-        editListing(sampleUser)
-
-
-        // if(AddListing)
-        //     ListingUpdate[`${field}`] = value;
-        // else{
-        //     let list = Object.assign({}, showListing)
+        if(AddListing) {
+            ListingUpdate[`${field}`] = value;
+        } else {
+            let sampleUser = Object.assign({}, showListing);
+            //sampleUser;
+            //console.log(sampleUser)
+            let Listing = sampleUser.managedListings.filter(lst => lst.listingId == sampleUser.ID)
             
-        //     list.managedListings.filter(lst => lst.listingId == showListing.ID)
-        //     list.field = value
-    
-        //     const newstate = showListing;
+            let newObject =  Object.assign({}, Listing[0]);
+            newObject[`${field}`] = value;
             
-        //     newstate.managedListings.forEach(lst => {
-        //         if(lst.listingId == showListing.ID)
-        //             lst=list
-                    
-        //         })
-    
-        //     editListing(newstate)
-            // console.log(ListingUpdate);
-        // }
+            console.log(newObject)
+
+            sampleUser.managedListings.forEach(lst => {
+                if(lst.listingId == sampleUser.ID)
+                    lst = Object.assign({}, newObject)
+            })
+
+            
+            //editListing(sampleUser)
+        }
+
+       // console.log(ListingUpdate)
+
     }
 
     function AddUrl () {
@@ -74,9 +76,10 @@ const EditEstate = ({AddListing}) => {
         editListing(ListingUpdate);
         console.log(ListingUpdate.Urls);
     }
-
+    
     async function CreateListing() {
         console.log("create")
+
         const response = await fetch(REQUEST_DESTINATION + "/listings" ,{
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
@@ -146,7 +149,7 @@ const EditEstate = ({AddListing}) => {
                     <div className="FormInlineFlex">
                         <div className="EstateRegSlot">
                             <span className="RegSlotspan">NAME</span>
-                            <input className="EstateField" 
+                            <input className="EstateField"  value={AddListing ? ListingUpdate.yearBuilt : showListing.managedListings.filter(lst => lst.listingId == showListing.ID).forEach(list => (list.yearBuilt))} 
                             name="Name" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="NAME"></input>
                         </div>
                         <div className="EstateRegSlot2">
@@ -159,7 +162,7 @@ const EditEstate = ({AddListing}) => {
                             <input className="EstateField" name="Owner" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="OWNER"></input>
                         </div>
                         <div className="EstateRegSlot">
-                            <span className="RegSlotspan">STATE</span>
+                            <span className="RegSlotspan">STATE</span> 
                             <select className="EstateField" name="State" onChange={(e) => AlterListing(e.target.name, e.target.value)}>
                                 <option>-</option>
                                 <option>TX</option>
@@ -175,20 +178,20 @@ const EditEstate = ({AddListing}) => {
                         </div>
                         <div className="EstateRegSlot">
                             <span className="RegSlotspan">YEAR</span>
-                            <input className="EstateField"
-                            name="YEAR" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="TITLE"></input>
+                            <input className="EstateField" 
+                            name="yearBuilt" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="YEAR"></input>
                         </div>
                     </div>
                     <div className="FormInlineFlex">
                         <div className="EstateRegSlot">
                             <span className="RegSlotspan">BATHS</span>
                             <input className="EstateField" 
-                            name="Baths" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="BATHS"></input>
+                            name="bathrooms" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="BATHS"></input>
                         </div>
                         <div className="EstateRegSlot">
                             <span className="RegSlotspan">BEDS</span>
                             <input className="EstateField" 
-                            name="Beds" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="BEDS"></input>
+                            name="bedrooms" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="BEDS"></input>
                         </div>
                         <div className="EstateRegSlot">
                             <span className="RegSlotspan">OFFICES</span>
@@ -197,12 +200,12 @@ const EditEstate = ({AddListing}) => {
                         <div className="EstateRegSlot">
                             <span className="RegSlotspan">FOOTAGE</span>
                             <input className="EstateField" 
-                             name="Footage" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="FOOTAGE"></input>
+                             name="squareFt" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="FOOTAGE"></input>
                         </div>
                         <div className="EstateRegSlot">
                             <span className="RegSlotspan">PRICE</span>
                             <input className="EstateField"  
-                            name="Price" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="PRICE"></input>
+                            name="price" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="PRICE"></input>
                         </div>
                     </div>
                     <br/><br/>
@@ -213,12 +216,12 @@ const EditEstate = ({AddListing}) => {
                         <div className="EstateRegSlot2">
                             <span className="RegSlotspan">LONGITUDE</span>
                             <input className="EstateField" 
-                            name="Longitude" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="Longitude"></input>
+                            name="longitude" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="Longitude"></input>
                         </div>
                         <div className="EstateRegSlot2">
                             <span className="RegSlotspan">LATITUDE</span>
                             <input className="EstateField"  
-                             name="Latitude" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="Latitude"></input>
+                             name="latitude" type="text" onChange={(e) => AlterListing(e.target.name, e.target.value)} placeholder="Latitude"></input>
                         </div>
                         <div className="EstateRegSlot">
                             <span className="RegSlotspan">ZIP CODE</span>
