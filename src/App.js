@@ -14,13 +14,13 @@ function App() {
       <BrowserRouter>
             <Routes>
               <Route path="/" element={<Landing/>} exact></Route>{/*****************Landing Page with links to Reg/Login*/}
-              <Route path="/Login" element={<Login/>}></Route>{/*****************Login to existing account*/}
-              <Route path="/Register" element={<Login/>}></Route>{/*****************Create User to existing account*/}
-              <Route path="/User" element={<UserPage/>}></Route>{/*****************Edit Profile and Listings of existing account*/}
+              <Route path="/Login"  element={<Login registerpage = {false}/>}></Route>{/*****************Login to existing account*/}
+              <Route path="/Register" element={<Login registerpage = {true}/>}></Route>{/*****************Create User to existing account*/}
+              <Route path="/User" element={<UserPage />}></Route>{/*****************Edit Profile and Listings of existing account*/}
               <Route path="/Search" element={<Results/>}></Route>{/********************************View and search for listings*/}
-              <Route path="/Search/*" element={<Results/>}></Route>{/********************************View and search for listings*/}
               <Route path="/RegisterListing" element={<EditEstate/>}></Route>{/*****************Add New Listing */}
-              <Route path="/EditListing" element={<EditEstate/>}></Route>{/*****************Edit Existing Listing*/}
+              <Route path="/AddListing" element={<EditEstate AddListing={true}/>}></Route>{/*****************Edit Existing Listing*/}
+              <Route path="/EditListing" element={<EditEstate AddListing={false}/>}></Route>{/*****************Edit Existing Listing*/}
               <Route path="/View" element={<Estate/>}></Route>{/****************************View/Add an Existing Listing*/}
             </Routes>
         </BrowserRouter > 

@@ -1,9 +1,21 @@
-
-
 .App {
   width: 100%;
   height: 100%;
   position: absolute;
+}
+
+.ProfileReturnBtn {
+  cursor: pointer;
+  position: absolute;
+  text-align: center;
+  float: left;
+  z-index: 0;
+  right: 100%;
+  width: 10%;
+  height: 10%;
+  text-decoration: none;
+  border-style: solid;
+  border-color: #282c34;
 }
 
 .Landing { /* comprised of header (height 25%) body (Height 60%) and footer (height 15%)*/
@@ -108,10 +120,6 @@
   right: 100%;
   background-color: honeydew;
   animation-delay:  2s;
-}
-
-.bSeg5 .bodySliderLink{
-  
 }
 
 @keyframes transitionX {
@@ -659,8 +667,14 @@ input.loginField {
   float:  right;
   padding: .5rem;
   height: fit-content;
+  text-decoration: none;
 }
 
+.CreatListingBtn:hover {
+  color: aqua;
+  background-color: rgb(39, 35, 35);
+  cursor: pointer;
+}
 
 /*************************END OF Estate STYLES**************************************/
 /*************************Search STYLES**************************************/
@@ -680,7 +694,9 @@ input.loginField {
   height: 20%;
   width: 100%;
   position: relative;
-  display: inline-flex;
+  text-align: center;
+  display: inline;
+  float: right;
   background-color: rgb(207, 214, 221);
   background-position: center;
   
@@ -691,4 +707,17 @@ input.loginField {
   font-size: 40px;
   padding: 5%;
   
+}
+
+
+/*************************END OF Search STYLES**************************************/
+/*************************Results STYLES**************************************/
+
+.ResultsBar {
+  width: 40%;
+  font-size: 20px;
+  position: absolute;
+  bottom: 15%;
+  left: 70%;
+  background-color: transparent;
 }
