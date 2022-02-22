@@ -5,18 +5,21 @@ import UserListings from "./UserListings";
 import LandingSearchBar from "./LandingSearchBar";
 import LandingHeader from "./LandingHeader";
 import { GiMushroomHouse, GiReturnArrow } from "react-icons/gi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Results = () => {
 
     const nav = useNavigate()
+    const location = useLocation()
+    const state = location.state
 
-    function Search (event) {
-        console.log(event.key)
-        if(event.key === 'Enter')
-            nav(`/Search/${event.target.value}`)
+    const [results, buildResults] = useState([])
+    const [visit, alterVisit] =useState(false)
 
-    }
+    const LISTING_BYADDRESS_REQUEST_DESTINATION = "http://localhost:8080/listings/search/address";
+    const LISTING_BYPRICE_REQUEST_DESTINATION = "http://localhost:8080/listings/search/price";
+    const LISTING_BYBATHROOMS_REQUEST_DESTINATION = "http://localhost:8080/listings/search/bathrooms";
+    const LISTING_BYBEDROOMS_REQUEST_DESTINATION = "http://localhost:8080/listings/search/bedrooms";
 
     const listingSearchParams = {
         address: "",
@@ -25,24 +28,39 @@ const Results = () => {
         bedrooms: ""
     }
 
-    const [results, buildResults] = useState([])
+    
+    
+
+
+    function Search (event) {
+        console.log(event.key)
+        if(event.key === 'Enter')
+            nav(`/Search`)
+
+    }
+
+   
+
+    if(!visit)
+    {
+        addressSearch("")
+        alterVisit(!visit)
+    }
 
     console.log(results)
 
-    const LISTING_BYADDRESS_REQUEST_DESTINATION = "http://localhost:8080/listings/search/address";
-    const LISTING_BYPRICE_REQUEST_DESTINATION = "http://localhost:8080/listings/search/price";
-    const LISTING_BYBATHROOMS_REQUEST_DESTINATION = "http://localhost:8080/listings/search/bathrooms";
-    const LISTING_BYBEDROOMS_REQUEST_DESTINATION = "http://localhost:8080/listings/search/bedrooms";
+    
     // const REALTOR_REQUEST_DESTINATION = "http://localhost:8080/realtors/search";
 
     function addressSearch(event) {
-        console.log(event.target.name)
+        //console.log(event.target.name)
 
         if (event.key === 'Enter') {
             listingSearchParams.address = event.target.value;
             
             listingSearch(LISTING_BYADDRESS_REQUEST_DESTINATION.concat("?address=", listingSearchParams.address))
-        } 
+        } else if (!visit)
+        listingSearch(LISTING_BYADDRESS_REQUEST_DESTINATION.concat("?address=", listingSearchParams.address))
     }
 
     function priceSearch(event) {
@@ -107,7 +125,7 @@ const Results = () => {
             <br/>
             <div className="SearchOptions">
                 <div className='CreatListingBtn ProfileReturnBtn'><Link to="/User"  >Profile<GiReturnArrow></GiReturnArrow></Link></div>
-                <div className="searchBar">
+                <div className="ResultsBar">
                     <BsSearch></BsSearch>
                     <input className="sBar" placeholder="Search Houses" onKeyDown={(e) => (addressSearch(e))}/>
                 </div>
@@ -138,6 +156,9 @@ const Results = () => {
                 <label for="">Footage</label><input type="number"></input>
             </div>
             <br/>
+
+            {///////////////////Bottom half of the page///////////////////
+            }
             <div className="userBorder1"></div>
             <div className="SearchPocket">
                 <UserListings Listings={results} ></UserListings>

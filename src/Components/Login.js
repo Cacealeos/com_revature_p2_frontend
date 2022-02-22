@@ -5,7 +5,8 @@ import { useNavigate, Link, useLocation } from "react-router-dom"
 
 const Login = ({registerpage}) => {
 
-    const [client, edit] = useState()
+    let client = {}
+    const [realtor, changeRealtor] = useState(false)
 
     // const location = useLocation()
     // const LoggedUser = location.state
@@ -63,6 +64,8 @@ const Login = ({registerpage}) => {
 
     const LOGIN_REQUEST_DESTINATION = "http://localhost:8080/Login"
 
+    const REALTOR_LOGIN_REQUEST_DESTINATION = "http://localhost:8080/realtors/Login"
+
     async function CreateUser() {
         
         const response = await fetch(REQUEST_DESTINATION ,{
@@ -81,8 +84,14 @@ const Login = ({registerpage}) => {
     }
 
     async function LoginUser() {
-        
-        const response = await fetch(LOGIN_REQUEST_DESTINATION ,{
+        console.log(realtor)
+        var url ="";
+        if(!realtor)
+        url = LOGIN_REQUEST_DESTINATION
+        else
+        url = REALTOR_LOGIN_REQUEST_DESTINATION
+
+        const response = await fetch(url ,{
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -97,8 +106,27 @@ const Login = ({registerpage}) => {
 
         const body = await response.json()// parses JSON response into native JavaScript objects
         console.log(body)
-        edit(body);
+        client = body; //creates client
+        console.log(client)
+
+        if (client.clientId > 0 && client.clientId !== "") {
+            
+            nav("/User", {state: client} )
+        } else if (client.realtorId > 0 && client.realtorId !== "")
+            nav("/User", {state: client} )
+        else {
+            
+            alert("Incorrect email or password!")
+        }
+    
+        
     }
+
+    // function changeRealtor () {
+    //     realtor = !realtor
+    //     console.log(realtor)
+    // }
+
 
     function AlterUser (field, value) {
         //ListingUpdate = showListing;
@@ -107,8 +135,8 @@ const Login = ({registerpage}) => {
     }
 
     function checkFields () {
-        nav("/User", {state: sampleUser})//testing needs to be REMOVED 
-        return//testing needs to be REMOVED 
+        // nav("/User", {state: sampleUser})//testing needs to be REMOVED 
+        // return//testing needs to be REMOVED 
         let foo = false;
         if(registerpage){
             
@@ -153,17 +181,6 @@ const Login = ({registerpage}) => {
         
     }
 
-    if(client) {
-        
-        if (client.clientId != 0) {
-            let id = client.clientId
-            nav("/User", client )
-        } else if (client.clientId == 0) {
-            nav("/Login")
-            alert("Incorrect email or password!")
-        }
-
-    } else
     return (
         <div className="LoginPage">
 
@@ -195,7 +212,7 @@ const Login = ({registerpage}) => {
                             { <>{(!newUser.lastName && REQ) && <label className='RequiredText'>This field is required.</label>}</> }
                         </div>
                     </div>}
-                   
+                    <label>Realtor???</label><input type="checkbox" name="realtor"  onClick={()=> changeRealtor(!realtor)}></input>
                     <br/>
 
                     <div className='loginInline'>

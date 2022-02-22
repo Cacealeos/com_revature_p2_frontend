@@ -4,17 +4,22 @@ import {BiLinkExternal } from 'react-icons/bi'
 import {MdDelete} from 'react-icons/md'
 import {Link} from 'react-router-dom'
 
-const UserListings = ({DeleteBtn, Listings}) => {
+const UserListings = ({DeleteBtn, Listings, User}) => {
+
+    
 
     return (
         Listings.map(estates => {
+            const state = Object.assign({}, User)
+            
+            state.ID = estates.listingId;
             return (
                 <>
                     <br/>
                 <label className="estateLabel"><GiHouse></GiHouse>{estates.address}
                  
                 <span className='ExternalLinkspan'><MdDelete onClick={()=> DeleteBtn(estates.listingId)}></MdDelete></span>
-                <Link to='/View' className='ExternalLinkspan'><BiLinkExternal></BiLinkExternal></Link></label>
+                <Link to='/View' state={state} className='ExternalLinkspan'><BiLinkExternal></BiLinkExternal></Link></label>
                     <div className="sampleAppoints">
                         
                         <div className="estateFieldDisplay">Footage: {estates.squareFt} sqr. ft.</div>
