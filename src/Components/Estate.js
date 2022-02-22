@@ -22,7 +22,7 @@ const Estate = () => {
     // const [showEmail, addEmail] = useState("")
     // console.log(showEmail)
     let email = ""
-    const API_KEY = "AIzaSyB3Zw6GbVBrm7Yas4y6AS2L56yOM15wKS0"
+    const API_KEY = ""
     const REQUEST_DESTINATION = "http://localhost:8080";
     const REALTOR_REQUEST_DESTINATION = "http://localhost:8080/listings/";
 
